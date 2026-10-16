@@ -1,0 +1,977 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="مركز العامر - خدمات الموبايل واللابتوب والخدمات الرقمية. صيانة احترافية، تسديد فواتير، شحن ألعاب وتطبيقات.">
+<meta name="theme-color" content="#12161a">
+<title>مركز العامر | Al-Amer Center - خدمات الموبايل والخدمات الرقمية</title>
+
+<link href="vendor/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link href="vendor/fonts/google-fonts.css" rel="stylesheet">
+<link rel="stylesheet" href="vendor/css/all.min.css">
+
+<style>
+:root{
+  --primary:#2b75bb; --primary-lt:#4a9be0; --primary-dk:#1a5085;
+  --accent:#e59318; --accent-lt:#ffb547; --accent-dk:#b8720c;
+  --dark:#12161a; --dark2:#181e25; --dark3:#212a34; --dark4:#2c3742;
+  --light:#f4f7fb; --txt:#2b3440; --muted:#6b7c8f;
+  --glass:rgba(255,255,255,.06);
+  --grad-main:linear-gradient(135deg,#2b75bb 0%,#4a9be0 100%);
+  --grad-acc:linear-gradient(135deg,#e59318 0%,#ffb547 100%);
+  --grad-mix:linear-gradient(120deg,#2b75bb 0%,#e59318 100%);
+}
+*{scroll-behavior:smooth;}
+body{
+  font-family:'Cairo',system-ui,sans-serif;background:var(--light);color:var(--txt);
+  overflow-x:hidden;padding-top:78px;
+}
+::selection{background:var(--primary);color:#fff;}
+::-webkit-scrollbar{width:11px;}
+::-webkit-scrollbar-track{background:var(--dark2);}
+::-webkit-scrollbar-thumb{background:var(--grad-mix);border-radius:10px;}
+h1,h2,h3,h4{font-weight:800;}
+
+/* ===== PRELOADER ===== */
+#preloader{
+  position:fixed;inset:0;z-index:99999;background:var(--dark);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:26px;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+#preloader.done{opacity:0;visibility:hidden;}
+.pre-cube{width:74px;height:74px;perspective:600px;}
+.pre-cube-in{
+  width:100%;height:100%;position:relative;transform-style:preserve-3d;
+  animation:preSpin 2.6s infinite linear;
+}
+.pre-cube-in div{
+  position:absolute;width:74px;height:74px;border:2px solid var(--primary);
+  background:rgba(43,117,187,.12);box-shadow:0 0 22px rgba(43,117,187,.5) inset;
+}
+.pre-cube-in div:nth-child(1){transform:translateZ(37px);}
+.pre-cube-in div:nth-child(2){transform:rotateY(180deg) translateZ(37px);border-color:var(--accent);background:rgba(229,147,24,.12);}
+.pre-cube-in div:nth-child(3){transform:rotateY(90deg) translateZ(37px);border-color:var(--accent);}
+.pre-cube-in div:nth-child(4){transform:rotateY(-90deg) translateZ(37px);}
+.pre-cube-in div:nth-child(5){transform:rotateX(90deg) translateZ(37px);}
+.pre-cube-in div:nth-child(6){transform:rotateX(-90deg) translateZ(37px);border-color:var(--accent);}
+@keyframes preSpin{from{transform:rotateX(0) rotateY(0);}to{transform:rotateX(360deg) rotateY(360deg);}}
+.pre-txt{color:#fff;font-weight:800;letter-spacing:2px;font-size:1.05rem;}
+.pre-txt span{color:var(--accent);}
+
+/* ===== SCROLL PROGRESS ===== */
+#scrollBar{
+  position:fixed;top:0;right:0;height:3px;width:0%;z-index:2000;
+  background:var(--grad-mix);box-shadow:0 0 12px rgba(229,147,24,.8);
+}
+
+/* ===== NAVBAR ===== */
+.nav-glass{
+  background:rgba(18,22,26,.82);backdrop-filter:blur(16px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.07);transition:all .4s ease;padding:.55rem 0;
+}
+.nav-glass.scrolled{background:rgba(18,22,26,.97);box-shadow:0 8px 32px rgba(0,0,0,.5);border-bottom-color:var(--accent);}
+.navbar-brand{display:flex;align-items:center;gap:11px;color:#fff!important;font-weight:900;font-size:1.15rem;}
+.brand-logo{
+  width:46px;height:46px;border-radius:13px;object-fit:cover;
+  box-shadow:0 0 0 2px rgba(229,147,24,.55),0 6px 18px rgba(229,147,24,.4);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.navbar-brand:hover .brand-logo{transform:rotateY(180deg) scale(1.08);}
+.brand-txt small{display:block;font-size:.62rem;color:var(--accent);letter-spacing:2.5px;font-weight:700;font-family:'Orbitron',sans-serif;}
+.nav-glass .nav-link{
+  color:#c4d0dd!important;font-weight:700;margin:0 5px;position:relative;padding:.5rem .85rem!important;border-radius:9px;transition:all .3s;
+}
+.nav-glass .nav-link::after{
+  content:"";position:absolute;bottom:4px;right:50%;left:50%;height:2px;border-radius:2px;
+  background:var(--grad-acc);transition:all .35s ease;
+}
+.nav-glass .nav-link:hover,.nav-glass .nav-link.active{color:#fff!important;background:rgba(255,255,255,.05);}
+.nav-glass .nav-link:hover::after,.nav-glass .nav-link.active::after{right:20%;left:20%;}
+.navbar-toggler{border:1px solid rgba(255,255,255,.25);padding:.35rem .6rem;}
+.navbar-toggler-icon{filter:invert(1);}
+
+/* ===== BUTTONS ===== */
+.btn-3d{
+  position:relative;border:none;border-radius:13px;font-weight:800;color:#fff;
+  padding:.72rem 1.75rem;overflow:hidden;isolation:isolate;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+}
+.btn-3d::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--grad-main);}
+.btn-3d::after{
+  content:"";position:absolute;inset:0;z-index:-1;background:var(--grad-acc);
+  opacity:0;transition:opacity .35s;
+}
+.btn-3d:hover::after{opacity:1;}
+.btn-3d:hover{transform:translateY(-4px);color:#fff;box-shadow:0 14px 30px rgba(229,147,24,.45);}
+.btn-3d.acc::before{background:var(--grad-acc);}
+.btn-3d.acc::after{background:var(--grad-main);}
+.btn-3d.acc:hover{box-shadow:0 14px 30px rgba(43,117,187,.45);}
+.btn-ghost{
+  border:2px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:13px;
+  font-weight:800;padding:.68rem 1.7rem;display:inline-flex;align-items:center;gap:9px;transition:all .35s;
+}
+.btn-ghost:hover{background:#fff;color:var(--dark);border-color:#fff;transform:translateY(-4px);box-shadow:0 12px 28px rgba(255,255,255,.2);}
+.btn-soc{
+  display:inline-flex;align-items:center;gap:10px;border-radius:13px;padding:.72rem 1.6rem;
+  font-weight:800;color:#fff;border:none;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+}
+.btn-soc:hover{color:#fff;transform:translateY(-5px) scale(1.04);}
+.b-fb{background:linear-gradient(135deg,#1877f2,#0b4fa8);box-shadow:0 8px 22px rgba(24,119,242,.42);}
+.b-fb:hover{box-shadow:0 14px 34px rgba(24,119,242,.65);}
+.b-ig{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);box-shadow:0 8px 22px rgba(220,39,67,.42);}
+.b-ig:hover{box-shadow:0 14px 34px rgba(220,39,67,.65);}
+.b-wa{background:linear-gradient(135deg,#25d366,#0d7f6f);box-shadow:0 8px 22px rgba(37,211,102,.42);}
+.b-wa:hover{box-shadow:0 14px 34px rgba(37,211,102,.65);}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;min-height:calc(100vh - 78px);display:flex;align-items:center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(43,117,187,.5),transparent 65%),
+    radial-gradient(ellipse 60% 50% at 90% 110%,rgba(229,147,24,.24),transparent 60%),
+    linear-gradient(165deg,#12161a 0%,#181e25 55%,#0a0d10 100%);
+  color:#fff;overflow:hidden;padding:3rem 0;
+}
+#heroCanvas{position:absolute;inset:0;z-index:0;opacity:.75;}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:linear-gradient(rgba(43,117,187,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(43,117,187,.055) 1px,transparent 1px);
+  background-size:52px 52px;animation:gridFlow 16s linear infinite;
+  mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,#000 40%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,#000 40%,transparent 100%);
+}
+@keyframes gridFlow{from{background-position:0 0;}to{background-position:0 52px;}}
+.hero .container{position:relative;z-index:3;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;background:rgba(229,147,24,.13);
+  border:1px solid rgba(229,147,24,.35);color:var(--accent-lt);padding:.42rem 1.25rem;
+  border-radius:50px;font-weight:800;font-size:.85rem;margin-bottom:1.4rem;
+}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#25d366;box-shadow:0 0 0 0 rgba(37,211,102,.7);animation:liveDot 1.8s infinite;}
+@keyframes liveDot{0%{box-shadow:0 0 0 0 rgba(37,211,102,.7);}70%{box-shadow:0 0 0 11px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.9rem);line-height:1.18;font-weight:900;margin-bottom:1.1rem;}
+.grad-txt{background:linear-gradient(100deg,var(--accent) 0%,#ffd27d 45%,var(--accent) 100%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shine 4s linear infinite;}
+@keyframes shine{to{background-position:200% center;}}
+.hero .lead{color:#a9b8c8;font-size:clamp(.98rem,2vw,1.18rem);font-weight:600;line-height:2;max-width:560px;}
+.typed-line{color:var(--accent-lt);font-weight:800;min-height:1.7em;display:block;font-size:clamp(1rem,2.2vw,1.3rem);margin-bottom:.7rem;}
+.typed-cursor{display:inline-block;width:3px;height:1.1em;background:var(--accent);vertical-align:-2px;animation:blink .9s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* ===== 3D LOGO ===== */
+.logo-stage{perspective:1200px;display:flex;justify-content:center;align-items:center;padding:1.5rem;}
+.logo-3d{
+  position:relative;width:290px;height:290px;transform-style:preserve-3d;
+  animation:logoFloat 6s ease-in-out infinite;
+}
+@keyframes logoFloat{0%,100%{transform:translateY(0) rotateX(0) rotateY(0);}50%{transform:translateY(-22px) rotateX(4deg) rotateY(-4deg);}}
+.logo-halo{
+  position:absolute;inset:-32px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--primary),var(--accent),var(--primary-lt),var(--accent-lt),var(--primary));
+  filter:blur(38px);opacity:.85;animation:haloSpin 8s linear infinite;
+}
+@keyframes haloSpin{to{transform:rotate(360deg);}}
+.logo-ring{
+  position:absolute;border-radius:50%;border:2px solid transparent;
+  border-top-color:var(--accent);border-left-color:var(--primary-lt);
+}
+.ring1{inset:-16px;animation:haloSpin 9s linear infinite;}
+.ring2{inset:-30px;border-top-color:var(--primary);border-left-color:var(--accent-lt);animation:haloSpin 13s linear infinite reverse;}
+.ring3{inset:-44px;border-style:dashed;border-color:rgba(255,255,255,.14);animation:haloSpin 24s linear infinite;}
+.logo-plate{
+  position:absolute;inset:0;border-radius:34px;overflow:hidden;transform:translateZ(40px);
+  box-shadow:0 0 0 3px rgba(255,255,255,.1),0 28px 60px rgba(0,0,0,.72),0 0 70px rgba(43,117,187,.4);
+  background:linear-gradient(160deg,#1d242c,#0e1216);
+}
+.logo-plate img{width:100%;height:100%;object-fit:cover;display:block;}
+.logo-plate::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 35%,rgba(255,255,255,.35) 48%,transparent 62%);
+  background-size:250% 250%;animation:sheen 5s ease-in-out infinite;
+}
+@keyframes sheen{0%{background-position:200% 0;}55%,100%{background-position:-120% 0;}}
+.orb{
+  position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.15rem;box-shadow:0 10px 26px rgba(0,0,0,.45);
+}
+.orb1{width:56px;height:56px;top:-6px;right:-16px;background:var(--grad-acc);animation:orbA 5s ease-in-out infinite;}
+.orb2{width:50px;height:50px;bottom:8px;left:-20px;background:var(--grad-main);animation:orbB 6.5s ease-in-out infinite;}
+.orb3{width:44px;height:44px;bottom:-14px;right:44px;background:linear-gradient(135deg,#25d366,#0d7f6f);animation:orbA 7.5s ease-in-out infinite reverse;}
+@keyframes orbA{0%,100%{transform:translate(0,0) rotate(0);}50%{transform:translate(-14px,-18px) rotate(14deg);}}
+@keyframes orbB{0%,100%{transform:translate(0,0) rotate(0);}50%{transform:translate(16px,-14px) rotate(-12deg);}}
+
+/* ===== STATS ===== */
+.stats-strip{
+  background:linear-gradient(100deg,var(--dark2),var(--dark3));border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:3px solid transparent;border-image:var(--grad-mix) 1;padding:2.6rem 0;
+}
+.stat-item{text-align:center;color:#fff;position:relative;}
+.stat-item .num{font-family:'Orbitron',sans-serif;font-size:clamp(1.8rem,4vw,2.7rem);font-weight:900;
+  background:var(--grad-acc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.stat-item .lbl{color:#93a5b8;font-weight:700;font-size:.9rem;margin-top:.5rem;}
+.stat-item i{font-size:1.5rem;color:var(--primary-lt);margin-bottom:.6rem;display:block;}
+
+/* ===== SECTION HEAD ===== */
+.section{padding:5.5rem 0;position:relative;}
+.sec-head{text-align:center;margin-bottom:3.4rem;}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(43,117,187,.1);
+  border:1px solid rgba(43,117,187,.28);color:var(--primary);font-weight:800;
+  padding:.4rem 1.25rem;border-radius:50px;font-size:.85rem;margin-bottom:.9rem;
+}
+.sec-head h2{font-size:clamp(1.7rem,4.2vw,2.6rem);color:var(--dark);font-weight:900;}
+.sec-head p{color:var(--muted);max-width:640px;margin:.7rem auto 0;font-weight:600;}
+.sec-line{width:96px;height:4px;margin:1.1rem auto 0;border-radius:4px;background:var(--grad-mix);}
+
+/* ===== 3D SERVICE CARDS ===== */
+.svc-wrap{perspective:1400px;height:100%;}
+.svc-card{
+  background:#fff;border-radius:24px;border:1px solid rgba(0,0,0,.05);padding:2.4rem 1.7rem;
+  text-align:center;height:100%;position:relative;overflow:hidden;transform-style:preserve-3d;
+  box-shadow:0 10px 34px rgba(18,22,26,.09);
+  transition:transform .18s ease-out,box-shadow .35s ease,border-color .35s ease;
+}
+.svc-card::before{
+  content:"";position:absolute;top:0;right:0;left:0;height:5px;background:var(--grad-mix);
+  transform:scaleX(0);transform-origin:right;transition:transform .45s ease;
+}
+.svc-card::after{
+  content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(43,117,187,.1),transparent 68%);
+  top:var(--my,50%);right:var(--mx,50%);transform:translate(50%,-50%);
+  opacity:0;transition:opacity .4s;pointer-events:none;
+}
+.svc-card:hover{box-shadow:0 30px 60px rgba(43,117,187,.24);border-color:rgba(43,117,187,.28);}
+.svc-card:hover::before{transform:scaleX(1);}
+.svc-card:hover::after{opacity:1;}
+.svc-card > *{position:relative;z-index:2;transform:translateZ(28px);}
+
+/* 3D CUBE ICON */
+.cube-stage{--cs:108px;--face-r:18px;--face-fs:2.5rem;--glow:26px;
+  width:var(--cs);height:var(--cs);margin:0 auto 1.6rem;perspective:520px;}
+.cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;
+  transform:rotateX(-18deg) rotateY(24deg);transition:transform .9s cubic-bezier(.34,1.3,.64,1);}
+.svc-card:hover .cube{transform:rotateX(-18deg) rotateY(384deg);}
+.face{
+  position:absolute;width:var(--cs);height:var(--cs);display:flex;align-items:center;justify-content:center;
+  font-size:var(--face-fs);color:#fff;border-radius:var(--face-r);border:1px solid rgba(255,255,255,.25);
+  backface-visibility:visible;
+}
+.f-front{transform:translateZ(calc(var(--cs)/2));}
+.f-back{transform:rotateY(180deg) translateZ(calc(var(--cs)/2));}
+.f-right{transform:rotateY(90deg) translateZ(calc(var(--cs)/2));}
+.f-left{transform:rotateY(-90deg) translateZ(calc(var(--cs)/2));}
+.f-top{transform:rotateX(90deg) translateZ(calc(var(--cs)/2));}
+.f-bottom{transform:rotateX(-90deg) translateZ(calc(var(--cs)/2));}
+.cube-blue .face{background:linear-gradient(140deg,#2b75bb,#1a5085);box-shadow:0 0 var(--glow) rgba(43,117,187,.5) inset;}
+.cube-blue .f-right,.cube-blue .f-left{background:linear-gradient(140deg,#4a9be0,#2b75bb);}
+.cube-orange .face{background:linear-gradient(140deg,#e59318,#b8720c);box-shadow:0 0 var(--glow) rgba(229,147,24,.5) inset;}
+.cube-orange .f-right,.cube-orange .f-left{background:linear-gradient(140deg,#ffb547,#e59318);}
+.cube-green .face{background:linear-gradient(140deg,#1f9d55,#0d6b38);box-shadow:0 0 var(--glow) rgba(31,157,85,.5) inset;}
+.cube-green .f-right,.cube-green .f-left{background:linear-gradient(140deg,#2bc168,#1f9d55);}
+.cube-purple .face{background:linear-gradient(140deg,#7c3aed,#5b21b6);box-shadow:0 0 var(--glow) rgba(124,58,237,.5) inset;}
+.cube-purple .f-right,.cube-purple .f-left{background:linear-gradient(140deg,#a78bfa,#7c3aed);}
+.cube-shadow{width:calc(var(--cs)*.72);height:14px;margin:-4px auto 1.5rem;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(0,0,0,.28),transparent 72%);filter:blur(4px);
+  animation:shadowPulse 6s ease-in-out infinite;}
+@keyframes shadowPulse{0%,100%{transform:scale(1);opacity:.7;}50%{transform:scale(.82);opacity:.42;}}
+.svc-card h3{font-size:1.28rem;color:var(--dark);margin-bottom:.75rem;font-weight:900;}
+.svc-card p{color:var(--muted);font-size:.95rem;line-height:1.85;margin-bottom:1.2rem;}
+.svc-feats{list-style:none;padding:0;margin:0 0 1.7rem;text-align:right;}
+.svc-feats li{display:flex;align-items:center;gap:10px;color:#4a5c6f;font-size:.9rem;padding:.34rem 0;font-weight:600;}
+.svc-feats li i{color:var(--accent);font-size:.82rem;}
+.svc-card .btn-3d{width:100%;}
+.svc-tag{
+  position:absolute;top:16px;left:16px;z-index:3;background:var(--grad-acc);color:#fff;
+  font-size:.7rem;font-weight:800;padding:.28rem .8rem;border-radius:50px;box-shadow:0 4px 12px rgba(229,147,24,.4);
+}
+
+/* ===== WHY US ===== */
+.why-sec{background:linear-gradient(165deg,var(--dark) 0%,var(--dark2) 100%);color:#fff;position:relative;overflow:hidden;}
+.why-sec::before{content:"";position:absolute;top:-140px;right:-140px;width:440px;height:440px;border-radius:50%;
+  background:radial-gradient(circle,rgba(43,117,187,.2),transparent 70%);}
+.why-sec::after{content:"";position:absolute;bottom:-160px;left:-160px;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle,rgba(229,147,24,.14),transparent 70%);}
+.why-sec .container{position:relative;z-index:2;}
+.why-sec .sec-head h2{color:#fff;}
+.why-sec .sec-head p{color:#93a5b8;}
+.why-sec .kicker{background:rgba(229,147,24,.12);border-color:rgba(229,147,24,.32);color:var(--accent-lt);}
+.why-card{
+  background:var(--glass);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.9rem 1.5rem;
+  height:100%;backdrop-filter:blur(12px);transition:transform .4s cubic-bezier(.34,1.3,.64,1),background .4s,border-color .4s;
+}
+.why-card:hover{transform:translateY(-10px);background:rgba(255,255,255,.1);border-color:rgba(229,147,24,.45);}
+.why-ico{
+  width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;color:#fff;margin-bottom:1.1rem;background:var(--grad-main);
+  box-shadow:0 10px 24px rgba(43,117,187,.42);transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.why-card:hover .why-ico{transform:rotateY(360deg) scale(1.1);background:var(--grad-acc);box-shadow:0 10px 24px rgba(229,147,24,.45);}
+.why-card h4{font-size:1.08rem;color:#fff;margin-bottom:.55rem;font-weight:800;}
+.why-card p{color:#9db0c4;font-size:.9rem;line-height:1.8;margin:0;}
+
+/* ===== FOLLOW / QR ===== */
+.qr-card{
+  display:flex;flex-direction:column;align-items:center;gap:.85rem;height:100%;
+  background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:24px;padding:1.9rem 1.4rem 1.6rem;
+  text-decoration:none;color:inherit;position:relative;overflow:hidden;
+  box-shadow:0 10px 34px rgba(18,22,26,.09);
+  transition:transform .3s cubic-bezier(.34,1.3,.64,1),box-shadow .35s,border-color .35s;
+}
+.qr-card::before{
+  content:"";position:absolute;top:0;right:0;left:0;height:5px;background:var(--grad-mix);
+  transform:scaleX(0);transform-origin:right;transition:transform .45s ease;
+}
+.qr-card:hover{color:inherit;transform:translateY(-10px);box-shadow:0 26px 54px rgba(18,22,26,.2);}
+.qr-card:hover::before{transform:scaleX(1);}
+.qr-ico{
+  width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.35rem;transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.qr-card:hover .qr-ico{transform:rotateY(360deg) scale(1.08);}
+.q-fb .qr-ico{background:linear-gradient(135deg,#1877f2,#0b4fa8);box-shadow:0 8px 20px rgba(24,119,242,.4);}
+.q-ig .qr-ico{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);box-shadow:0 8px 20px rgba(220,39,67,.4);}
+.q-wa .qr-ico{background:linear-gradient(135deg,#25d366,#0d7f6f);box-shadow:0 8px 20px rgba(37,211,102,.4);}
+.qr-frame{
+  display:block;padding:.6rem;background:#fff;border-radius:18px;
+  border:2px dashed rgba(43,117,187,.28);
+  transition:transform .45s cubic-bezier(.34,1.3,.64,1),border-color .45s;
+}
+.qr-card:hover .qr-frame{transform:scale(1.04) rotate(-2deg);border-color:var(--accent);}
+.qr-frame img{display:block;width:100%;max-width:196px;height:auto;border-radius:10px;image-rendering:pixelated;}
+.qr-lbl{font-weight:900;color:var(--dark);font-size:1.08rem;}
+.qr-hint{font-size:.82rem;color:var(--muted);font-weight:600;}
+.qr-hint i{color:var(--accent);margin-inline-start:5px;}
+
+/* ===== TOAST ===== */
+.toast-box{position:fixed;bottom:26px;right:26px;z-index:9999;display:flex;flex-direction:column;gap:11px;}
+.toastx{
+  min-width:270px;background:var(--dark3);color:#fff;border-radius:14px;padding:.95rem 1.2rem;
+  display:flex;align-items:center;gap:12px;font-weight:700;font-size:.9rem;
+  box-shadow:0 14px 36px rgba(0,0,0,.42);border-right:4px solid var(--primary);
+  transform:translateX(-130%);opacity:0;transition:all .45s cubic-bezier(.34,1.4,.64,1);
+}
+.toastx.in{transform:translateX(0);opacity:1;}
+.toastx.ok{border-right-color:#25d366;}
+.toastx.ok i{color:#25d366;}
+.toastx.err{border-right-color:#e5484d;}
+.toastx.err i{color:#e5484d;}
+.toastx i{font-size:1.3rem;color:var(--primary);}
+
+/* ===== FOOTER ===== */
+.footer{background:#0a0d10;color:#93a5b8;padding:4rem 0 0;position:relative;overflow:hidden;}
+.footer::before{content:"";position:absolute;top:0;right:0;left:0;height:3px;background:var(--grad-mix);}
+.foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:1.1rem;}
+.foot-brand img{width:56px;height:56px;border-radius:15px;object-fit:cover;box-shadow:0 0 0 2px rgba(229,147,24,.45),0 8px 20px rgba(0,0,0,.5);}
+.foot-brand .t{color:#fff;font-weight:900;font-size:1.3rem;line-height:1.2;}
+.foot-brand .t span{color:var(--accent);}
+.foot-brand .t small{display:block;font-size:.62rem;letter-spacing:2.5px;color:var(--primary-lt);font-family:'Orbitron',sans-serif;font-weight:700;}
+.footer p{font-size:.92rem;line-height:1.9;}
+.foot-title{color:#fff;font-weight:800;font-size:1.05rem;margin-bottom:1.15rem;position:relative;padding-bottom:.6rem;}
+.foot-title::after{content:"";position:absolute;bottom:0;right:0;width:38px;height:3px;border-radius:3px;background:var(--grad-acc);}
+.foot-links{list-style:none;padding:0;margin:0;}
+.foot-links li{margin-bottom:.6rem;}
+.foot-links a{color:#93a5b8;text-decoration:none;font-weight:600;font-size:.92rem;transition:all .3s;display:inline-flex;align-items:center;gap:8px;}
+.foot-links a i{font-size:.7rem;color:var(--accent);transition:transform .3s;}
+.foot-links a:hover{color:#fff;}
+.foot-links a:hover i{transform:translateX(-5px);}
+.soc-row{display:flex;gap:.8rem;flex-wrap:wrap;}
+.soc-c{
+  width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.25rem;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+}
+.soc-c:hover{color:#fff;transform:translateY(-6px) rotate(-8deg);}
+.s-fb{background:linear-gradient(135deg,#1877f2,#0b4fa8);box-shadow:0 8px 20px rgba(24,119,242,.4);}
+.s-ig{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);box-shadow:0 8px 20px rgba(220,39,67,.4);}
+.s-wa{background:linear-gradient(135deg,#25d366,#0d7f6f);box-shadow:0 8px 20px rgba(37,211,102,.4);}
+.foot-div{border-top:1px solid rgba(255,255,255,.08);margin-top:2.8rem;}
+.foot-copy{padding:1.4rem 0;text-align:center;font-size:.88rem;font-weight:600;}
+.foot-copy .hrt{color:var(--accent);animation:beat 1.4s infinite;display:inline-block;}
+@keyframes beat{0%,100%{transform:scale(1);}25%{transform:scale(1.22);}}
+
+/* ===== FLOATERS ===== */
+.wa-float{
+  position:fixed;bottom:26px;left:26px;width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#25d366,#0d7f6f);color:#fff;font-size:1.85rem;
+  display:flex;align-items:center;justify-content:center;z-index:1050;
+  box-shadow:0 12px 30px rgba(37,211,102,.55);transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  animation:waPulse 2.2s infinite;
+}
+.wa-float:hover{color:#fff;transform:scale(1.13) rotate(8deg);}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55);}70%{box-shadow:0 0 0 20px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+.wa-float .tip{
+  position:absolute;right:74px;background:var(--dark3);color:#fff;font-size:.78rem;font-weight:700;
+  padding:.42rem .85rem;border-radius:9px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .3s;
+}
+.wa-float:hover .tip{opacity:1;right:70px;}
+#toTop{
+  position:fixed;bottom:26px;right:26px;width:48px;height:48px;border-radius:14px;border:none;
+  background:var(--grad-main);color:#fff;font-size:1.1rem;z-index:1050;cursor:pointer;
+  opacity:0;visibility:hidden;transform:translateY(18px);
+  transition:all .4s cubic-bezier(.34,1.4,.64,1);box-shadow:0 10px 26px rgba(43,117,187,.45);
+}
+#toTop.show{opacity:1;visibility:visible;transform:translateY(0);}
+#toTop:hover{background:var(--grad-acc);transform:translateY(-5px);box-shadow:0 14px 32px rgba(229,147,24,.5);}
+
+/* ===== REVEAL ===== */
+[data-rv]{opacity:0;transform:translateY(42px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1);}
+[data-rv].vis{opacity:1;transform:translateY(0);}
+[data-rv="r"]{transform:translateX(52px);}
+[data-rv="l"]{transform:translateX(-52px);}
+[data-rv="z"]{transform:scale(.9);}
+[data-rv="r"].vis,[data-rv="l"].vis{transform:translateX(0);}
+[data-rv="z"].vis{transform:scale(1);}
+
+@media (max-width:991.98px){
+  .hero{min-height:auto;padding:3.2rem 0 2.6rem;text-align:center;}
+  .hero .lead{margin-inline:auto;}
+  .logo-3d{width:236px;height:236px;}
+}
+@media (max-width:575.98px){
+  body{padding-top:70px;}
+  .logo-3d{width:190px;height:190px;}
+  .section{padding:3.2rem 0;}
+  .sec-head{margin-bottom:2.4rem;}
+  .sec-head p{max-width:100%;}
+  .hero{padding:2.4rem 0 2rem;}
+  .hero h1{font-size:clamp(1.85rem,8vw,2.5rem);margin-bottom:.95rem;}
+  .hero-badge{margin-bottom:1rem;}
+  .typed-line{font-size:.95rem;margin-bottom:.5rem;}
+  .hero .lead{font-size:.95rem;line-height:1.9;margin-bottom:.2rem;}
+  .stats-strip{padding:1.8rem 0;}
+  .stat-item .lbl{font-size:.82rem;}
+  .cube-stage{--cs:92px;--face-r:14px;--face-fs:2rem;--glow:18px;margin-bottom:1.1rem;}
+  .svc-card{padding:2rem 1.3rem;}
+  .svc-card h3{font-size:1.12rem;}
+  .svc-card p{font-size:.9rem;line-height:1.75;}
+  .svc-feats{text-align:right;}
+  .svc-feats li{font-size:.86rem;}
+  .svc-tag{font-size:.65rem;top:12px;left:12px;padding:.24rem .7rem;}
+  .why-card{padding:1.5rem 1.15rem;}
+  .qr-card{padding:1.3rem .8rem 1.1rem;gap:.6rem;border-radius:20px;}
+  .qr-ico{width:44px;height:44px;font-size:1.15rem;border-radius:13px;}
+  .qr-frame{padding:.45rem;border-radius:15px;}
+  .qr-frame img{max-width:132px;}
+  .qr-lbl{font-size:.95rem;}
+  .qr-hint{font-size:.74rem;}
+  .footer{padding:2.8rem 0 1.1rem;}
+  .foot-brand{justify-content:center;}
+  .footer .col-lg-4:first-child{text-align:center;}
+  .footer .col-lg-4:first-child .soc-row{justify-content:center;}
+  .toast-box{right:12px;left:12px;bottom:96px;}
+  .toastx{min-width:auto;}
+  .wa-float{width:54px;height:54px;font-size:1.6rem;bottom:18px;left:18px;}
+  #toTop{bottom:18px;right:18px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-cube"><div class="pre-cube-in"><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div class="pre-txt">مركز <span>العامر</span></div>
+</div>
+
+<div id="scrollBar"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark nav-glass fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="#home">
+      <img src="img/logo.jpg" alt="شعار مركز العامر" class="brand-logo">
+      <span class="brand-txt">مركز العامر<small>AL-AMER CENTER</small></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="القائمة">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#home"><i class="fa-solid fa-house-chimney me-1"></i> الرئيسية</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services"><i class="fa-solid fa-cubes me-1"></i> خدماتنا</a></li>
+        <li class="nav-item"><a class="nav-link" href="#why"><i class="fa-solid fa-award me-1"></i> لماذا نحن</a></li>
+        <li class="nav-item"><a class="nav-link" href="#follow"><i class="fa-solid fa-qrcode me-1"></i> تابعنا</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact"><i class="fa-brands fa-whatsapp me-1"></i> تواصل معنا</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-rv="r">
+        <span class="hero-badge"><span class="dot"></span> متاحون الآن لخدمتك</span>
+        <h1>مركز <span class="grad-txt">العامر</span><br>للخدمات الرقمية</h1>
+        <span class="typed-line"><span id="typed"></span><span class="typed-cursor"></span></span>
+        <p class="lead">خبرة احترافية في صيانة الموبايل واللابتوب، تسديد الفواتير، وشحن الألعاب والتطبيقات — بسرعة قياسية وضمان حقيقي وأسعار تنافسية.</p>
+      </div>
+      <div class="col-lg-6" data-rv="l">
+        <div class="logo-stage">
+          <div class="logo-3d" id="logo3d">
+            <div class="logo-halo"></div>
+            <div class="logo-ring ring1"></div>
+            <div class="logo-ring ring2"></div>
+            <div class="logo-ring ring3"></div>
+            <div class="logo-plate"><img src="img/logo.jpg" alt="شعار مركز العامر"></div>
+            <div class="orb orb1"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="orb orb2"><i class="fa-solid fa-laptop-code"></i></div>
+            <div class="orb orb3"><i class="fa-solid fa-bolt"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3" data-rv><div class="stat-item"><i class="fa-solid fa-screwdriver-wrench"></i><div class="num"><span class="cnt" data-to="4800">0</span>+</div><div class="lbl">جهاز تم إصلاحه</div></div></div>
+      <div class="col-6 col-lg-3" data-rv><div class="stat-item"><i class="fa-solid fa-face-smile"></i><div class="num"><span class="cnt" data-to="3200">0</span>+</div><div class="lbl">عميل سعيد</div></div></div>
+      <div class="col-6 col-lg-3" data-rv><div class="stat-item"><i class="fa-solid fa-gamepad"></i><div class="num"><span class="cnt" data-to="15000">0</span>+</div><div class="lbl">عملية شحن</div></div></div>
+      <div class="col-6 col-lg-3" data-rv><div class="stat-item"><i class="fa-solid fa-clock"></i><div class="num"><span class="cnt" data-to="24">0</span>/7</div><div class="lbl">دعم متواصل</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="sec-head" data-rv>
+      <span class="kicker"><i class="fa-solid fa-bolt"></i> ماذا نقدّم لك</span>
+      <h2>خدماتنا المتكاملة</h2>
+      <p>محاور متكاملة نتفوق فيها لنقدّم لك تجربة رقمية سلسة واحترافية من البداية للنهاية.</p>
+      <div class="sec-line"></div>
+    </div>
+    <div class="row g-4">
+
+      <div class="col-lg-4 col-md-6" data-rv>
+        <div class="svc-wrap"><div class="svc-card tilt">
+          <span class="svc-tag">الأكثر طلباً</span>
+          <div class="cube-stage"><div class="cube cube-blue">
+            <div class="face f-front"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <div class="face f-back"><i class="fa-solid fa-microchip"></i></div>
+            <div class="face f-right"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="face f-left"><i class="fa-solid fa-laptop"></i></div>
+            <div class="face f-top"><i class="fa-solid fa-gear"></i></div>
+            <div class="face f-bottom"><i class="fa-solid fa-wrench"></i></div>
+          </div></div>
+          <div class="cube-shadow"></div>
+          <h3>صيانة الموبايل واللابتوب</h3>
+          <p>تشخيص دقيق وإصلاح احترافي بقطع أصلية مضمونة، مع تسليم جهازك بحالة مثالية وفي أسرع وقت.</p>
+          <ul class="svc-feats">
+            <li><i class="fa-solid fa-circle-check"></i> شاشات، بطاريات، كاميرات وشواحن</li>
+            <li><i class="fa-solid fa-circle-check"></i> صيانة سوفت وير وإزالة الفيروسات</li>
+            <li><i class="fa-solid fa-circle-check"></i> تسريع الأجهزة واستعادة البيانات</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-rv>
+        <div class="svc-wrap"><div class="svc-card tilt">
+          <div class="cube-stage"><div class="cube cube-orange">
+            <div class="face f-front"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="face f-back"><i class="fa-solid fa-receipt"></i></div>
+            <div class="face f-right"><i class="fa-solid fa-credit-card"></i></div>
+            <div class="face f-left"><i class="fa-solid fa-wallet"></i></div>
+            <div class="face f-top"><i class="fa-solid fa-money-bill-wave"></i></div>
+            <div class="face f-bottom"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          </div></div>
+          <div class="cube-shadow"></div>
+          <h3>تسديد الفواتير والخدمات</h3>
+          <p>ادفع فواتيرك واشتراكاتك اليومية بسرعة وأمان تام دون طوابير أو تعقيد، مع تأكيد فوري لكل عملية.</p>
+          <ul class="svc-feats">
+            <li><i class="fa-solid fa-circle-check"></i> فواتير الهاتف والإنترنت</li>
+            <li><i class="fa-solid fa-circle-check"></i> اشتراكات التطبيقات والمنصات</li>
+            <li><i class="fa-solid fa-circle-check"></i> تعبئة أرصدة وباقات الإنترنت</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-rv>
+        <div class="svc-wrap"><div class="svc-card tilt">
+          <span class="svc-tag">تسليم فوري</span>
+          <div class="cube-stage"><div class="cube cube-green">
+            <div class="face f-front"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="face f-back"><i class="fa-solid fa-gem"></i></div>
+            <div class="face f-right"><i class="fa-solid fa-rocket"></i></div>
+            <div class="face f-left"><i class="fa-solid fa-trophy"></i></div>
+            <div class="face f-top"><i class="fa-solid fa-coins"></i></div>
+            <div class="face f-bottom"><i class="fa-solid fa-fire"></i></div>
+          </div></div>
+          <div class="cube-shadow"></div>
+          <h3>شحن الألعاب والتطبيقات</h3>
+          <p>اشحن ألعابك المفضلة وتطبيقاتك بأفضل الأسعار وبتسليم فوري مباشرة على رقم حسابك أو الـ ID.</p>
+          <ul class="svc-feats">
+            <li><i class="fa-solid fa-circle-check"></i> جواهر وبطاقات الألعاب العالمية</li>
+            <li><i class="fa-solid fa-circle-check"></i> رصيد المتاجر والمنصات الرقمية</li>
+            <li><i class="fa-solid fa-circle-check"></i> تفعيل الحسابات ودعم فني كامل</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="col-lg-4 col-md-6" data-rv>
+        <div class="svc-wrap"><div class="svc-card tilt">
+          <span class="svc-tag">برمجة مخصصة</span>
+          <div class="cube-stage"><div class="cube cube-purple">
+            <div class="face f-front"><i class="fa-brands fa-android"></i></div>
+            <div class="face f-back"><i class="fa-solid fa-code"></i></div>
+            <div class="face f-right"><i class="fa-solid fa-laptop-code"></i></div>
+            <div class="face f-left"><i class="fa-brands fa-php"></i></div>
+            <div class="face f-top"><i class="fa-solid fa-globe"></i></div>
+            <div class="face f-bottom"><i class="fa-solid fa-database"></i></div>
+          </div></div>
+          <div class="cube-shadow"></div>
+          <h3>تصميم تطبيقات ومواقع ويب</h3>
+          <p>صمّم ونفّذ تطبيقات أندرويد ومواقع ويب حديثة ومتجاوبة باحترافية، من الفكرة حتى النشر والإطلاق بجودة عالمية.</p>
+          <ul class="svc-feats">
+            <li><i class="fa-solid fa-circle-check"></i> تطبيقات أندرويد وواجهات متجاوبة</li>
+            <li><i class="fa-solid fa-circle-check"></i> مواقع شركات ومتاجر إلكترونية</li>
+            <li><i class="fa-solid fa-circle-check"></i> برمجة مخصصة وصيانة وتطوير مستمر</li>
+          </ul>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section why-sec" id="why">
+  <div class="container">
+    <div class="sec-head" data-rv>
+      <span class="kicker"><i class="fa-solid fa-award"></i> ثقة تُبنى بالخبرة</span>
+      <h2>لماذا يختارنا العملاء؟</h2>
+      <p>نلتزم بمعايير احترافية عالمية في كل تفصيل من تفاصيل خدمتنا لك.</p>
+      <div class="sec-line"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6" data-rv="z"><div class="why-card"><div class="why-ico"><i class="fa-solid fa-bolt"></i></div><h4>سرعة في التنفيذ</h4><p>معظم الطلبات تُنجز خلال دقائق، ونحترم وقتك في كل خطوة من الخدمة.</p></div></div>
+      <div class="col-lg-3 col-md-6" data-rv="z"><div class="why-card"><div class="why-ico"><i class="fa-solid fa-shield-halved"></i></div><h4>ضمان حقيقي</h4><p>قطع أصلية وضمان واضح على كل عملية صيانة، وتعويض في حال أي خلل.</p></div></div>
+      <div class="col-lg-3 col-md-6" data-rv="z"><div class="why-card"><div class="why-ico"><i class="fa-solid fa-tags"></i></div><h4>أسعار منافسة</h4><p>أفضل قيمة مقابل السعر في السوق، دون رسوم خفية أو مفاجآت.</p></div></div>
+      <div class="col-lg-3 col-md-6" data-rv="z"><div class="why-card"><div class="why-ico"><i class="fa-solid fa-headset"></i></div><h4>دعم متواصل</h4><p>فريقنا جاهز للرد على استفساراتك عبر واتساب في أي وقت تحتاجنا فيه.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOLLOW / QR -->
+<section class="section" id="follow">
+  <div class="container">
+    <div class="sec-head" data-rv>
+      <span class="kicker"><i class="fa-solid fa-qrcode"></i> امسح وتابعنا</span>
+      <h2>وصلنا بكود QR</h2>
+      <p>وجّه كاميرا هاتفك مباشرةً إلى الحساب الذي تريده، أو اضغط على البطاقة لفتحه فوراً.</p>
+      <div class="sec-line"></div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-lg-4 col-md-4 col-6" data-rv="z">
+        <a class="qr-card q-fb" href="https://www.facebook.com/share/1GcWUVTPyA/" target="_blank" rel="noopener" aria-label="صفحة مركز العامر على فيسبوك">
+          <span class="qr-ico"><i class="fa-brands fa-facebook-f"></i></span>
+          <span class="qr-frame"><img src="img/qr/facebook.png" alt="كود QR لصفحة فيسبوك" width="481" height="481" loading="lazy"></span>
+          <span class="qr-lbl">فيسبوك</span>
+          <span class="qr-hint">تابع آخر أخبارنا<i class="fa-solid fa-arrow-left"></i></span>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-4 col-6" data-rv="z">
+        <a class="qr-card q-ig" href="https://www.instagram.com/alamer_center95?igsh=aGIyN2gxdGZudDFm" target="_blank" rel="noopener" aria-label="حساب مركز العامر على إنستغرام">
+          <span class="qr-ico"><i class="fa-brands fa-instagram"></i></span>
+          <span class="qr-frame"><img src="img/qr/instagram.png" alt="كود QR لحساب إنستغرام" width="495" height="495" loading="lazy"></span>
+          <span class="qr-lbl">إنستغرام</span>
+          <span class="qr-hint">شاهد أعمالنا وصورنا<i class="fa-solid fa-arrow-left"></i></span>
+        </a>
+      </div>
+      <div class="col-lg-4 col-md-4 col-6" data-rv="z">
+        <a class="qr-card q-wa" href="https://wa.me/963957426585" target="_blank" rel="noopener" aria-label="محادثة واتساب مع مركز العامر">
+          <span class="qr-ico"><i class="fa-brands fa-whatsapp"></i></span>
+          <span class="qr-frame"><img src="img/qr/whatsapp.png" alt="كود QR لمحادثة واتساب" width="495" height="495" loading="lazy"></span>
+          <span class="qr-lbl">واتساب</span>
+          <span class="qr-hint">ابدأ محادثة الآن<i class="fa-solid fa-arrow-left"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="foot-brand">
+          <img src="img/logo.jpg" alt="شعار مركز العامر">
+          <div class="t">مركز <span>العامر</span><small>AL-AMER CENTER</small></div>
+        </div>
+        <p>وجهتك الموثوقة لخدمات الموبايل واللابتوب والخدمات الرقمية. نلتزم بالجودة والسرعة والشفافية في كل خدمة نقدّمها.</p>
+        <div class="soc-row mt-3">
+          <a href="https://www.facebook.com/share/1GcWUVTPyA/" target="_blank" rel="noopener" class="soc-c s-fb" aria-label="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/alamer_center95?igsh=aGIyN2gxdGZudDFm" target="_blank" rel="noopener" class="soc-c s-ig" aria-label="إنستغرام"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/963957426585" target="_blank" rel="noopener" class="soc-c s-wa" aria-label="واتساب"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-6">
+        <h5 class="foot-title">روابط سريعة</h5>
+        <ul class="foot-links">
+          <li><a href="#home"><i class="fa-solid fa-chevron-left"></i> الرئيسية</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-left"></i> خدماتنا</a></li>
+          <li><a href="#why"><i class="fa-solid fa-chevron-left"></i> لماذا نحن</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-left"></i> تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4 col-6">
+        <h5 class="foot-title">خدماتنا</h5>
+        <ul class="foot-links">
+          <li><a href="#services"><i class="fa-solid fa-chevron-left"></i> صيانة الموبايل</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-left"></i> صيانة اللابتوب</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-left"></i> تسديد الفواتير</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-left"></i> شحن الألعاب</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <h5 class="foot-title">تواصل معنا</h5>
+        <p class="mb-2"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i> محادثة واتساب مباشرة على مدار الساعة</p>
+        <p class="mb-3"><i class="fa-solid fa-clock" style="color:var(--accent)"></i> نرد على طلبك خلال دقائق</p>
+        <a href="https://wa.me/963957426585" target="_blank" rel="noopener" class="btn-soc b-wa w-100 justify-content-center"><i class="fa-brands fa-whatsapp"></i> ابدأ المحادثة</a>
+      </div>
+    </div>
+    <div class="foot-div"></div>
+    <div class="foot-copy">
+      جميع الحقوق محفوظة &copy; <span id="yr"></span> <strong style="color:#fff">مركز العامر</strong> — صُنع بكل <i class="fa-solid fa-heart hrt"></i> لخدمتكم
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/963957426585" target="_blank" rel="noopener" class="wa-float" aria-label="واتساب">
+  <span class="tip">تواصل معنا الآن</span><i class="fa-brands fa-whatsapp"></i>
+</a>
+<button id="toTop" aria-label="أعلى الصفحة"><i class="fa-solid fa-arrow-up"></i></button>
+<div class="toast-box" id="toastBox"></div>
+
+<script src="vendor/js/bootstrap.bundle.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+/* ---------- PRELOADER ---------- */
+window.addEventListener("load", function(){
+  setTimeout(function(){ document.getElementById("preloader").classList.add("done"); }, 600);
+});
+
+/* ---------- YEAR ---------- */
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* ---------- PARTICLE NETWORK CANVAS ---------- */
+(function particles(){
+  const cv = document.getElementById("heroCanvas");
+  if(!cv) return;
+  const ctx = cv.getContext("2d");
+  let w, h, pts = [], mouse = {x:null, y:null};
+  const COUNT = window.innerWidth < 768 ? 34 : 74;
+  const LINK = window.innerWidth < 768 ? 110 : 148;
+
+  function size(){
+    const r = cv.parentElement.getBoundingClientRect();
+    w = cv.width = r.width; h = cv.height = r.height;
+  }
+  function make(){
+    pts = [];
+    for(let i=0;i<COUNT;i++){
+      pts.push({
+        x: Math.random()*w, y: Math.random()*h,
+        vx: (Math.random()-.5)*.42, vy: (Math.random()-.5)*.42,
+        r: Math.random()*1.9+.9,
+        c: Math.random() > .68 ? "229,147,24" : "43,117,187"
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<pts.length;i++){
+      const p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > w) p.vx *= -1;
+      if(p.y < 0 || p.y > h) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(" + p.c + ",.72)";
+      ctx.fill();
+      for(let j=i+1;j<pts.length;j++){
+        const q = pts[j];
+        const d = Math.hypot(p.x-q.x, p.y-q.y);
+        if(d < LINK){
+          ctx.beginPath();
+          ctx.strokeStyle = "rgba(" + p.c + "," + (.24*(1-d/LINK)) + ")";
+          ctx.lineWidth = .8;
+          ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+        }
+      }
+      if(mouse.x !== null){
+        const dm = Math.hypot(p.x-mouse.x, p.y-mouse.y);
+        if(dm < 170){
+          ctx.beginPath();
+          ctx.strokeStyle = "rgba(229,147,24," + (.4*(1-dm/170)) + ")";
+          ctx.lineWidth = 1;
+          ctx.moveTo(p.x,p.y); ctx.lineTo(mouse.x,mouse.y); ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  cv.parentElement.addEventListener("mousemove", function(e){
+    const r = cv.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  cv.parentElement.addEventListener("mouseleave", function(){ mouse.x = mouse.y = null; });
+  window.addEventListener("resize", function(){ size(); make(); });
+  size(); make(); draw();
+})();
+
+/* ---------- TYPING EFFECT ---------- */
+(function typing(){
+  const el = document.getElementById("typed");
+  if(!el) return;
+  const words = ["صيانة موبايل ولابتوب باحترافية","تسديد فواتير وخدمات فورية","شحن ألعاب وتطبيقات بأفضل سعر","دعم فني على مدار الساعة"];
+  let wi = 0, ci = 0, del = false;
+  (function tick(){
+    const wrd = words[wi];
+    el.textContent = del ? wrd.substring(0, ci--) : wrd.substring(0, ci++);
+    let sp = del ? 45 : 95;
+    if(!del && ci > wrd.length){ sp = 1900; del = true; }
+    else if(del && ci < 0){ del = false; wi = (wi+1)%words.length; ci = 0; sp = 400; }
+    setTimeout(tick, sp);
+  })();
+})();
+
+/* ---------- SCROLL: NAVBAR + PROGRESS + ACTIVE + TOP BTN ---------- */
+const nav = document.getElementById("mainNav");
+const bar = document.getElementById("scrollBar");
+const top = document.getElementById("toTop");
+const links = document.querySelectorAll(".nav-glass .nav-link");
+const secs = document.querySelectorAll("section[id], header[id]");
+let ticking = false;
+
+function onScroll(){
+  const y = window.scrollY;
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (dh > 0 ? (y/dh)*100 : 0) + "%";
+  nav.classList.toggle("scrolled", y > 40);
+  top.classList.toggle("show", y > 420);
+  const pos = y + 130;
+  secs.forEach(function(s){
+    if(s.offsetTop <= pos && s.offsetTop + s.offsetHeight > pos){
+      links.forEach(function(l){
+        l.classList.toggle("active", l.getAttribute("href") === "#" + s.id);
+      });
+    }
+  });
+  ticking = false;
+}
+window.addEventListener("scroll", function(){
+  if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+}, {passive:true});
+onScroll();
+
+top.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+
+/* ---------- CLOSE MOBILE MENU ---------- */
+document.querySelectorAll("#navMenu a").forEach(function(a){
+  a.addEventListener("click", function(){
+    const c = bootstrap.Collapse.getInstance(document.getElementById("navMenu"));
+    if(c) c.hide();
+  });
+});
+
+/* ---------- REVEAL ON SCROLL ---------- */
+const io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en, i){
+    if(en.isIntersecting){
+      setTimeout(function(){ en.target.classList.add("vis"); }, i*95);
+      io.unobserve(en.target);
+    }
+  });
+}, {threshold:.14, rootMargin:"0px 0px -60px 0px"});
+document.querySelectorAll("[data-rv]").forEach(function(el){ io.observe(el); });
+
+/* ---------- COUNTERS ---------- */
+const cio = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(!en.isIntersecting) return;
+    const el = en.target, to = +el.dataset.to, dur = 1900, st = performance.now();
+    (function step(now){
+      const p = Math.min((now-st)/dur, 1);
+      const ease = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.floor(to*ease).toLocaleString("en-US");
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = to.toLocaleString("en-US");
+    })(st);
+    cio.unobserve(el);
+  });
+}, {threshold:.5});
+document.querySelectorAll(".cnt").forEach(function(el){ cio.observe(el); });
+
+/* ---------- 3D TILT ON CARDS ---------- */
+document.querySelectorAll(".tilt").forEach(function(card){
+  card.addEventListener("mousemove", function(e){
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const rx = ((y - r.height/2) / r.height) * -11;
+    const ry = ((x - r.width/2) / r.width) * 11;
+    card.style.setProperty("--mx", (r.width - x) + "px");
+    card.style.setProperty("--my", y + "px");
+    card.style.transform = "perspective(1000px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-10px) scale(1.02)";
+  });
+  card.addEventListener("mouseleave", function(){
+    card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)";
+  });
+});
+
+/* ---------- 3D LOGO PARALLAX ---------- */
+(function logoTilt(){
+  const lg = document.getElementById("logo3d");
+  if(!lg) return;
+  const stage = lg.parentElement;
+  stage.addEventListener("mousemove", function(e){
+    const r = stage.getBoundingClientRect();
+    const rx = (((e.clientY - r.top) - r.height/2) / r.height) * -20;
+    const ry = (((e.clientX - r.left) - r.width/2) / r.width) * 20;
+    lg.style.animation = "none";
+    lg.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+  });
+  stage.addEventListener("mouseleave", function(){
+    lg.style.transform = "";
+    lg.style.animation = "";
+  });
+})();
+
+/* ---------- TOAST ---------- */
+function toast(msg, type){
+  const box = document.getElementById("toastBox");
+  const t = document.createElement("div");
+  const ic = type === "ok" ? "fa-circle-check" : type === "err" ? "fa-circle-exclamation" : "fa-circle-info";
+  t.className = "toastx " + (type || "");
+  t.innerHTML = '<i class="fa-solid ' + ic + '"></i><span>' + msg + '</span>';
+  box.appendChild(t);
+  requestAnimationFrame(function(){ t.classList.add("in"); });
+  setTimeout(function(){
+    t.classList.remove("in");
+    setTimeout(function(){ t.remove(); }, 500);
+  }, 3600);
+}
+
+/* ---------- WELCOME TOAST ---------- */
+window.addEventListener("load", function(){
+  setTimeout(function(){ toast("أهلاً بك في مركز العامر", "ok"); }, 1800);
+});
+
+})();
+</script>
+</body>
+</html>
